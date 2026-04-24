@@ -31,4 +31,6 @@ int main() {
     cout << inverter("luiz") << endl;      // ziul
 
     palindromo("ovo");
+
+    return 0;
 }

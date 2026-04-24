@@ -1,6 +1,6 @@
 # 📚 Estudos de Algoritmos — C++
 
-Repositório com exercícios práticos de algoritmos e estruturas de dados desenvolvidos em C++ durante os estudos da disciplina. Os problemas envolvem manipulação de arrays, recursão e strings.
+Repositório com exercícios práticos de algoritmos e estruturas de dados desenvolvidos em C++ durante a disciplina de **Algoritmos e Estruturas de Dados** do curso de **Tecnologia em Análise e Desenvolvimento de Sistemas** no **IFPE** (Instituto Federal de Educação, Ciência e Tecnologia de Pernambuco).
 
 ---
 
@@ -8,10 +8,14 @@ Repositório com exercícios práticos de algoritmos e estruturas de dados desen
 
 ```
 .
-├── rotate.cpp   # Rotação de array N posições
-├── maior.cpp    # Maior elemento via recursão
-├── strings.cpp  # Reordenação de string (Counting Sort)
-└── reverse.cpp  # Inversão de string via recursão
+├── rotate.cpp       # Rotação de array N posições
+├── maior.cpp        # Maior elemento via recursão
+├── strings.cpp      # Reordenação de string (Counting Sort)
+├── reverse.cpp      # Inversão de string via recursão
+├── portland.cpp     # Quarteirões seguros — BC2168
+├── island.cpp       # Perímetro de ilha — LeetCode 463
+├── chuva.cpp        # Propagação de chuva iterativa e recursiva — BC3052
+└── contamina.cpp    # Contaminação em matriz — BC1583
 ```
 
 ---
@@ -85,6 +89,97 @@ A função recursiva `inverter()` recebe uma string e retorna ela com os caracte
 
 ---
 
+## 🏙️ portland.cpp — Quarteirões Seguros (BC2168)
+
+Dado uma matriz de esquinas com câmeras (`1`) ou sem (`0`), determina se cada quarteirão é **seguro (S)** ou **inseguro (U)**. Um quarteirão é seguro se tiver pelo menos duas câmeras nas suas quatro esquinas.
+
+**Exemplo:**
+```
+Entrada:        Saída:
+1 1 0 1         SSS
+1 0 1 0         SUS
+1 0 0 1         SSS
+0 1 1 0
+```
+
+**Conceitos aplicados:**
+- Percurso de matrizes com duplo laço
+- Soma das esquinas de cada quarteirão (i,j), (i,j+1), (i+1,j), (i+1,j+1)
+- Classificação por limiar (>= 2 câmeras → seguro)
+
+---
+
+## 🏝️ island.cpp — Perímetro de Ilha (LeetCode 463)
+
+Dada uma matriz representando um mapa, calcula o perímetro da ilha formada pelas células com valor `1`. A ilha é conexa, sem lagos internos.
+
+**Exemplo:**
+```
+0 1 0 0
+1 1 1 0
+0 1 0 0
+1 1 0 0
+
+Saída: 16
+```
+
+**Conceitos aplicados:**
+- Percurso de matriz com verificação de vizinhos
+- Para cada célula de terra, contribui com 4 lados menos os lados compartilhados com vizinhos também de terra
+
+---
+
+## 🌧️ chuva.cpp — Propagação de Chuva (BC3052 / OBI 2019)
+
+Simula o escoamento da chuva em uma matriz a partir de uma gota (`o`), com obstáculos (`#`). Implementa duas abordagens com comportamentos distintos:
+
+- **Iterativa:** a chuva escorre apenas para a **esquerda**
+- **Recursiva:** a chuva escorre apenas para a **direita**
+
+**Exemplo:**
+```
+Original:       Iterativa:      Recursiva:
+.o...           oo...           .oo..
+.#...           o#...           .#o..
+.....           o....           ..o..
+.....           o....           ..o..
+.....           o....           ..oo.
+..#..           o.#..           ..#o.
+.....           o....           ...o.
+```
+
+**Conceitos aplicados:**
+- Simulação iterativa com flag de mudança (`do-while`)
+- Flood fill recursivo (DFS em matriz)
+- Propagação direcionada com restrição de movimento
+
+---
+
+## ☣️ contamina.cpp — Contaminação (BC1583)
+
+Dado um mapa com células livres (`A`), bloqueadas (`X`) e contaminadas (`T`), propaga a contaminação para todas as células `A` conectadas às células `T`. Adaptado diretamente da lógica do problema Chuva.
+
+- **Iterativa:** propaga nas 4 direções via `do-while`
+- **Recursiva:** flood fill a partir de cada célula `T`
+
+**Exemplo:**
+```
+Original:       Iterativa e Recursiva:
+XXAAXXX         XXAAXXX
+XXAAXAX         XXAAXAX
+XXXXAXX         XXXXTXX
+XAAAAAX         XTTTTTX
+TAAXAAA         TTTXTTT
+XXXXXXX         XXXXXXX
+```
+
+**Conceitos aplicados:**
+- Flood fill iterativo e recursivo
+- Reuso e adaptação mínima de código existente
+- Verificação de limites de matriz
+
+---
+
 ## 🛠️ Como compilar
 
 Cada arquivo é independente. Para compilar e rodar individualmente:
@@ -94,13 +189,17 @@ g++ rotate.cpp -o rotate && ./rotate
 g++ maior.cpp -o maior && ./maior
 g++ strings.cpp -o strings && ./strings
 g++ reverse.cpp -o reverse && ./reverse
+g++ portland.cpp -o portland && ./portland
+g++ island.cpp -o island && ./island
+g++ chuva.cpp -o chuva && ./chuva
+g++ contamina.cpp -o contamina && ./contamina
 ```
-
-Ou configure o `CMakeLists.txt` com um `add_executable` para cada arquivo.
 
 ---
 
 ## 📖 Referências
 
 - Livro: *Entendendo Algoritmos* — Aditya Bhargava
-- Disciplina de Algoritmos e Estruturas de Dados
+- Disciplina de Algoritmos e Estruturas de Dados — IFPE
+- [Beecrowd](https://www.beecrowd.com.br) — plataforma de juízes online
+- [LeetCode](https://leetcode.com) — plataforma de desafios de programação
