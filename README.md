@@ -15,7 +15,9 @@ Repositório com exercícios práticos de algoritmos e estruturas de dados desen
 ├── portland.cpp     # Quarteirões seguros — BC2168
 ├── island.cpp       # Perímetro de ilha — LeetCode 463
 ├── chuva.cpp        # Propagação de chuva iterativa e recursiva — BC3052
-└── contamina.cpp    # Contaminação em matriz — BC1583
+├── contamina.cpp    # Contaminação em matriz — BC1583
+├── pilha_min.cpp    # MinStack — menor elemento em O(1) — LC155
+└── fila_media.cpp   # Fila com média atual em O(1) — buffer circular
 ```
 
 ---
@@ -180,6 +182,48 @@ XXXXXXX         XXXXXXX
 
 ---
 
+## 🥇 pilha_min.cpp — MinStack (LeetCode 155)
+
+Implementação de uma pilha especial que retorna o **menor elemento presente na pilha** em tempo constante, sem precisar percorrê-la.
+
+**Exemplo:**
+```
+push(5) → min: 5
+push(3) → min: 3
+push(7) → min: 3
+pop()   → min: 3
+pop()   → min: 5
+```
+
+**Conceitos aplicados:**
+- Pilha implementada com `vector<>` e lógica de índice manual (sem `push_back`)
+- Registro paralelo do mínimo acumulado para cada posição da pilha
+- Consulta do mínimo em O(1) — sem percorrer nenhum elemento
+- Desafio opcional: solução submetida e aceita no LeetCode 155
+
+---
+
+## 📊 fila_media.cpp — Fila com Média
+
+Implementação de uma fila especial que retorna a **média aritmética atual dos elementos** presentes nela em tempo constante, sem recalcular a cada consulta.
+
+**Exemplo:**
+```
+enfileira(10) → média: 10.0
+enfileira(2)  → média: 6.0
+enfileira(3)  → média: 5.0
+enfileira(5)  → média: 5.0   (fila cheia, capacidade 4)
+desenfileira() + enfileira(6) → média: 4.0
+```
+
+**Conceitos aplicados:**
+- Buffer circular com `vector<>` — inserção e remoção em O(1)
+- Variável `soma` atualizada incrementalmente a cada `enfileira` e `desenfileira`
+- Cálculo da média em O(1): `soma / tamanho` — sem percorrer a fila
+- Operador módulo `%` para wrap-around do índice no array circular
+
+---
+
 ## 🛠️ Como compilar
 
 Cada arquivo é independente. Para compilar e rodar individualmente:
@@ -193,6 +237,8 @@ g++ portland.cpp -o portland && ./portland
 g++ island.cpp -o island && ./island
 g++ chuva.cpp -o chuva && ./chuva
 g++ contamina.cpp -o contamina && ./contamina
+g++ pilha_min.cpp -o pilha_min && ./pilha_min
+g++ fila_media.cpp -o fila_media && ./fila_media
 ```
 
 ---

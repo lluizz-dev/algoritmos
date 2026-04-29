@@ -3,4 +3,4 @@ project(c__)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(c__ contamina.cpp)
+add_executable(c__ parentesis.cpp)
