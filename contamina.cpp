@@ -58,8 +58,8 @@ void solucao_recursiva(vector<string> &C) {
 }
 
 void print(vector<string> &C) {
-    for (int i = 0; i < (int)C.size(); i++) {
-        for (int j = 0; j < (int)C[i].size(); j++) {
+    for (int i = 0; i < C.size(); i++) {
+        for (int j = 0; j < C[i].size(); j++) {
             cout << C[i][j];
         }
         cout << endl;

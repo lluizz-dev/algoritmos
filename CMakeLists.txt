@@ -1,6 +1,6 @@
-cmake_minimum_required(VERSION 4.2)
-project(c__)
+cmake_minimum_required(VERSION 4.0)
+project(algoritmos)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(c__ parentesis.cpp)
+add_executable(untitled round_robin.cpp)
