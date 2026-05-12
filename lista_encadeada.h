@@ -66,7 +66,19 @@ public:
         
 	// TODO: 2 casos
 	//   1 - 1o elemento?
+        if (idx == 1) {
+            tmp->prox = ini;
+            ini = tmp;
+        }
 	//   2 - Elemento no meio? [ver pegar]
+        else {
+            Nodo *ant = ini;
+            for (int i = 1; i < idx - 1; i++) {
+                ant = ant->prox;
+            }
+            tmp->prox = ant->prox;
+            ant->prox = tmp;
+        }
 
         num_itens++;
     }
@@ -77,11 +89,32 @@ public:
 
         Nodo *tmp = ini;
 
-	// TODO: 4 casos
-	//   1 - 1o elemento?
-	//   2 - 1o e único elemento?
- 	//   3 - Elemento do meio (não 1o)? [ver pegar]
-        //   4 - Não 1o e último?
+        // TODO: 4 casos
+        //   1 - 1o e único elemento?
+        if (ini == fim) {
+            ini = nullptr;
+            fim = nullptr;
+        }
+        //   2 - 1o elemento?
+        else if (idx == 1) {
+            ini = tmp->prox;
+        }
+        //   3 - Elemento do meio (não 1o)? [ver pegar]
+        else {
+            Nodo *ant = ini;
+            for (int i = 1; i < idx - 1; i++) {
+                ant = ant->prox;
+            }
+            tmp = ant->prox;
+
+            if (tmp == fim) {      // caso 4 - último
+                ant->prox = nullptr;
+                fim = ant;
+            } else {               // caso 3 - meio
+                ant->prox = tmp->prox;
+            }
+        }
+ 	    //   4 - Não 1o e último?
 
         delete tmp;
 
@@ -101,6 +134,12 @@ public:
     int buscar(T valor) const override {
         Nodo *tmp = ini;
         // TODO [ver pegar]
+        for (int i = 1; i <= num_itens && tmp != nullptr; i++) {
+            if (tmp->valor == valor) {
+                return i;
+            }
+            tmp = tmp->prox;
+        }
         return -1;
     }
 

@@ -43,6 +43,12 @@ public:
         if (idx < 1 || idx > tamanho()) throw runtime_error("Indice invalido");
         
         //TODO
+        // Tenho que colocar todos os elementos, até o idx, uma posição a direita
+        for (int i = num_itens; i >= idx; i--) {
+            itens[i] = itens[i - 1];
+        }
+
+        itens[idx - 1] = v;
         
         num_itens++;
     }
@@ -52,6 +58,10 @@ public:
         if (idx < 1 || idx > tamanho()) throw runtime_error("Indice invalido");
 
         //TODO
+        // Tenho que mover todos os elementos para a esquerda a partir do primeiro depois do indice
+        for (int i = idx + 1; i <= num_itens; i++) {
+            itens[i - 1] = itens[i];
+        }
        
         num_itens--;
     }
