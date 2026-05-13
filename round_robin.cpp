@@ -10,10 +10,25 @@ struct processo {
     int ciclos;
 };
 
-vector<int> round_robin(const vector<processo>& processos, int max_ciclos) {
+vector<int> round_robin(vector<processo> processos, int max_ciclos) {
+    queue<processo> fila;
     vector<int> concluidos;
 
-    // TODO
+    for (auto &p : processos)
+        fila.push(p);
+
+    while (!fila.empty()) {
+        processo atual = fila.front();
+        fila.pop();
+
+        atual.ciclos -= max_ciclos;
+
+        if (atual.ciclos <= 0) {
+            concluidos.push_back(atual.pid);
+        } else {
+            fila.push(atual);
+        }
+    }
 
     return concluidos;
 }

@@ -7,7 +7,8 @@ void rotate(vector<int> &arr, int n) {
     // TODO
     vector<int> transicao = arr;
     for (int i = 0; i < arr.size(); i++) {
-        int novaPosicao = ((i + n) % (int)arr.size() + (int)arr.size()) % (int)arr.size();
+        // int novaPosicao = ((i + n) % arr.size() + arr.size()) % arr.size();
+        int novaPosicao = (i + n + arr.size()) % arr.size();
         transicao[novaPosicao] = arr[i];
     }
     arr = transicao;

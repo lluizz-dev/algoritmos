@@ -19,7 +19,7 @@ public:
     
     void push(int val) {
 		// TODO
-    	if (this->topo == (int)elementos.size() - 1) {
+    	if (this->topo == elementos.size() - 1) {
     		cout << "Pilha cheia" << endl;
     		return;
     	}
