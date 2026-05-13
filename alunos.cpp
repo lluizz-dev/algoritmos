@@ -20,6 +20,21 @@ struct Aluno {
 
 void filtrar(Lista<Aluno> &alunos, Lista<Aluno> &reprovados, float nota) {
     // TODO
+    int indices[8];
+    for (int i = 1; i <= alunos.tamanho(); i++) {
+        if (alunos[i].nota < nota) {
+            reprovados.adicionar(alunos[i]);
+            indices[i] = 1;
+        }
+        else {
+            indices[i] = 0;
+        }
+    }
+    for (int i = alunos.tamanho(); i >= 1; i--) {
+        if (indices[i] == 1) {
+            alunos.remover(i);
+        }
+    }
 }
 
 int main() {
