@@ -12,8 +12,9 @@ public:
 
     int add(int val) {
         // TODO
-       
-	return -1;
+        scores.adicionar(val);
+        int idx = scores.tamanho() - k + 1;
+        return scores.pegar(idx);
     }
 };
 
