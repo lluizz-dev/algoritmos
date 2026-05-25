@@ -47,14 +47,30 @@ public:
 
     void insert(T_key key, T_value value) {
         // TODO
+        int idx = get_idx(key);
+        remove(key);
+        table[idx].push_back(pair<T_key, T_value>(key, value));
     }
 
     void remove(T_key key) {
         // TODO
+        int idx = get_idx(key);
+        for (auto it = table[idx].begin(); it != table[idx].end(); ++it) {
+            if (it->first == key) {
+                table[idx].erase(it);
+                break;
+            }
+        }
     }
 
     T_value search(T_key key) {
-        // TODO
+        int idx = get_idx(key);
+        for (auto &par : table[idx]) {
+            if (par.first == key) {
+                return par.second;
+            }
+        }
+        return not_found;
     }
 
     void show() {

@@ -23,8 +23,16 @@ inline ostream &operator<< (ostream &out, const CPF& cpf) {
 
 template <>
 inline long hash_function<CPF>(const CPF &cpf) {
-    // TODO
-    return -1;
+    long hash = 0;
+    const char *str = cpf.valor.c_str();
+    while (*str) {
+        if (isdigit(*str)) {
+            int digito = *str - '0';
+            hash = hash * 31 + digito;
+        }
+        str++;
+    }
+    return abs(hash);
 }
 
 template <class T_chave, class T_valor>
