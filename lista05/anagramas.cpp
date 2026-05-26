@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include <string>
 #include <vector>
@@ -9,7 +8,14 @@ using namespace std;
 
 void agrupar(const vector<string> &palavras,
              unordered_map<string, vector<string>> &grupos) {
-    // TODO
+
+    for (const string &palavra : palavras) {
+        string chave = palavra;
+
+        sort(chave.begin(), chave.end());
+
+        grupos[chave].push_back(palavra);
+    }
 }
 
 int main() {
