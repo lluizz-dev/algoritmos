@@ -19,29 +19,30 @@ struct Aluno {
 };
 
 void filtrar(Lista<Aluno> &alunos, Lista<Aluno> &reprovados, float nota) {
-    // TODO
-    int indices[8];
+    ListaArray<Aluno> aprovadosTemporario(alunos.tamanho());
+
     for (int i = 1; i <= alunos.tamanho(); i++) {
         if (alunos[i].nota < nota) {
             reprovados.adicionar(alunos[i]);
-            indices[i] = 1;
-        }
-        else {
-            indices[i] = 0;
+        } else {
+            aprovadosTemporario.adicionar(alunos[i]);
         }
     }
-    for (int i = alunos.tamanho(); i >= 1; i--) {
-        if (indices[i] == 1) {
-            alunos.remover(i);
-        }
+
+    while (alunos.tamanho() > 0) {
+        alunos.remover(1);
+    }
+
+    for (int i = 1; i <= aprovadosTemporario.tamanho(); i++) {
+        alunos.adicionar(aprovadosTemporario[i]);
     }
 }
 
 int main() {
-    ListaArray<Aluno> alunos(10);
-    ListaArray<Aluno> reprovados(10);
-    // ListaEncadeada<Aluno> alunos(10);
-    // ListaEncadeada<Aluno> reprovados(10);
+    // ListaArray<Aluno> alunos(10);
+    // ListaArray<Aluno> reprovados(10);
+    ListaEncadeada<Aluno> alunos(10);
+    ListaEncadeada<Aluno> reprovados(10);
 
     vector<Aluno> todos = {
         {"Esmeralda", 7.5},
