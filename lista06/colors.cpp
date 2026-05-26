@@ -4,7 +4,27 @@
 using namespace std;
 
 void ordenar_cores(vector<int>& nums) {
-    // TODO
+    if (nums.empty()) return;
+
+    int max_val = nums[0];
+    for (int num : nums) {
+        if (num > max_val) max_val = num;
+    }
+
+    vector<int> contagem(max_val + 1, 0);
+
+    for (int num : nums) {
+        contagem[num]++;
+    }
+
+    int indice_original = 0;
+    for (int cor = 0; cor <= max_val; ++cor) {
+        while (contagem[cor] > 0) {
+            nums[indice_original] = cor;
+            indice_original++;
+            contagem[cor]--;
+        }
+    }
 }
 
 int main() {
