@@ -12,13 +12,31 @@
 
 BinaryTree::Node * BinaryTree::_insert(Node *_root, int key) {
     // TODO
-	
+	if (_root == nullptr) {
+		_root = new Node(key);
+	}
+	else if (_root->key < key) {
+		_root->right = _insert(_root->right, key);
+	}
+	else if (_root->key > key) {
+		_root->left = _insert(_root->left, key);
+	}
+
+	updateH(_root);
+
 	return _root;
 }
 
 BinaryTree::Node * BinaryTree::_search(Node *_root, int key) {
     // TODO
-	
+	if (_root == nullptr) return nullptr;
+	else if (key == _root->key) return _root;
+	else if (_root->key > key) {
+		return _search(_root->left, key);
+	}
+	else {
+		return _search(_root->right, key);
+	}
 }
 
 void BinaryTree::_show(Node * _root) {

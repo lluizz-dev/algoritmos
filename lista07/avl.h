@@ -18,7 +18,7 @@ public:
     // Mesma interface que BinaryTree
 
 private:
-    // Funções herdadas
+    // Funï¿½ï¿½es herdadas
 
     Node * _insert(Node * root, int key) override;
     Node * _remove(Node * root, int key) override;
@@ -27,7 +27,7 @@ private:
     void _show(Node * root) override;
     int _validate(Node * root, int &min, int &max) override;
 
-    // Funções novas
+    // Funï¿½ï¿½es novas
 
     static int BF(Node * node) { // Fator de balanceamento
 		return H(node->left) - H(node->right);
@@ -37,11 +37,11 @@ private:
 		return node == nullptr || abs(BF(node)) < 2;
 	}
 
-	// Pesada à esquerda ou à direita?
+	// Pesada ï¿½ esquerda ou ï¿½ direita?
 	static int leftHeavy(Node * node) { return H(node->left) > H(node->right); }
 	static int rightHeavy(Node * node) { return H(node->left) < H(node->right); }
 
-	// Funções de balanceamento e rotação
+	// Funï¿½ï¿½es de balanceamento e rotaï¿½ï¿½o
 	static Node * rebalance(Node * node);
 	static Node * rotateLeft(Node * node);
 	static Node * rotateRight(Node * node);
