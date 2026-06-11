@@ -76,7 +76,17 @@ BinaryTree::Node * AVLTree::rotateLeft(Node * node) {
 // Realiza a rota��o a direita sobre "node" retornando a nova raiz
 BinaryTree::Node * AVLTree::rotateRight(Node * node) {
     //TODO
-	
+	Node * X = node;
+	Node * R = node->left;
+	Node * RL = node->left->right;
+
+	X->left = RL;
+	R->right = X;
+
+	updateH(X); // Primeiro X,
+	updateH(R); // Altura de L depedende de X
+
+	node = R;
 	return node;
 }
 
