@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <vector>
 #include <iostream>
 #include <set>
@@ -12,6 +13,27 @@ using namespace std;
 
 vector<int> two_sum_simple(const vector<int>& nums, int target) {
     // TODO
+    set<int> tree;
+    vector<int> res;
+
+    for (int i = 0; i < nums.size(); i++) {
+        tree.insert(nums[i]);
+    }
+
+    int complemento;
+
+    for (int i = 0; i < nums.size(); i++) {
+        complemento = target - nums[i];
+        if (nums[i] == complemento) {
+            continue;
+        }
+
+        if (tree.count(complemento) == true) {
+            res.push_back(nums[i]);
+            res.push_back(complemento);
+            break;
+        }
+    }
    
     return res;
 }
