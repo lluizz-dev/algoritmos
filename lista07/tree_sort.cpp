@@ -11,7 +11,7 @@ int main() {
 // int tree_sort() {
     cout << endl << "*** Ordenando usando BST/AVL *** " << endl;
 
-    vector nums = {2, 7, 11, 15, 12, 1, 35, 16, 23, 5};
+    vector<int> nums = {2, 7, 11, 15, 12, 1, 35, 16, 23, 5};
 
     AVLTree tree;
 

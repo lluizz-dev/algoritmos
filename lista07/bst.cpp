@@ -49,7 +49,11 @@ void BinaryTree::_show(Node * _root) {
 
 void BinaryTree::_sort(Node * _root, vector<int> &res) {
     // TODO
-    
+	if (_root == nullptr) return;
+
+	_sort(_root->left, res);
+	res.push_back(_root->key);
+	_sort(_root->right, res);
 }
 
 BinaryTree::Node * BinaryTree::_remove(Node *_root, int key) {
