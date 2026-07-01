@@ -6,10 +6,11 @@ Graph montar_grafo(const vector<pair<int, int>> &pecas, int max) {
     Graph grafo(max + 1);
 
     // pecas s�o bidirecionais
-    for (auto [a, b] : pecas) {
-        grafo.edge(a, b, 1);
-        grafo.edge(b, a, 1);
+    for (const auto& par : pecas) {
+        grafo.edge(par.first, par.second, 1);
+        grafo.edge(par.second, par.first, 1);
     }
+
 
     return grafo;
 }

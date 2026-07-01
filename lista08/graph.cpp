@@ -3,34 +3,44 @@
 
 #include "graph.h"
 
-// Criação da aresta src --> dst
+// Criaï¿½ï¿½o da aresta src --> dst
 void Graph::edge(int src, int dst, int w) {
 	if (src < 0) throw std::runtime_error("Src invalido");
 	if (dst < 0) throw std::runtime_error("Dst invalido");
     if (w   < 0) throw std::runtime_error("Distancia/peso invalido");
     // TODO
-
+	adj[src].push_back(pair<int, int>(dst, w));
 }
 
-// Grau de saída: src -> dst
+// Grau de saï¿½da: src -> dst
 int Graph::degree(int src) const {
     if (src < 0 || src >= adj.size()) throw std::runtime_error("Src invalido");
     // TODO
-
-    return -1;
+	return adj[src].size();
 }
 
 list<int> Graph::neighbors(int src) const {
     if (src < 0 || src >= adj.size()) throw std::runtime_error("Src invalido");
     // TODO
+	list<int> result;
+	for (auto neighbor : adj[src]) {
+		result.push_back(neighbor.first);
+	}
 
-    return list<int>();
+    return result;
 }
 
+// retorna o peso da aresta entre src e dst
 int Graph::weight(int src, int dst) const {
     if (src < 0 || src >= adj.size()) throw std::runtime_error("Src invalido");
     if (dst < 0 || dst >= adj.size()) throw std::runtime_error("Dst invalido");
     // TODO
+
+	for (auto neighbor : adj[src]) {
+		if (neighbor.first == dst) {
+			return neighbor.second;
+		}
+	}
 
     return -1;
 }
@@ -142,8 +152,8 @@ list<int> Graph::spf(int src, int dst) {
     if (dst < 0 || dst >= this->size())
         throw std::runtime_error("Dst invalido");
 
-	vector<int> prev(adj.size(), -1);     // vértices anteriores
-    vector<long> dist(adj.size(), 99999); // distâncias acumuladas; 99999 = INF
+	vector<int> prev(adj.size(), -1);     // vï¿½rtices anteriores
+    vector<long> dist(adj.size(), 99999); // distï¿½ncias acumuladas; 99999 = INF
 
     dijkstra(src, prev, dist);
 
