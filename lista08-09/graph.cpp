@@ -60,10 +60,36 @@ void Graph::print() const {
 
 
 bool Graph::isConnected() const {
-	// TODO
-	
+	int n = this->size();
+	vector<int> group(n);
 
-	return false;
+	for (int i = 0; i < n; i++) {
+		group[i] = i;
+	}
+
+	for (int i = 0; i < n; i++) {
+		list<int> nei = this->neighbors(i);
+		for (int dst : nei) {
+			int oldGroup = group[dst];
+			int newGroup = group[i];
+
+			if (oldGroup != newGroup) {
+				for (int j = 0; j < n; j++) {
+					if (group[j] == oldGroup) {
+						group[j] = newGroup;
+					}
+				}
+			}
+		}
+	}
+
+	for (int i = 1; i < n; i++) {
+		if (group[i] != group[0]) {
+			return false;
+		}
+	}
+
+	return true;
 }
 
 // -------- PRAT 09 --------------//
@@ -83,8 +109,14 @@ list<int> Graph::dfs(int src) {
 
 // Busca em profundidade
 void Graph::DFS(int src, vector<bool> &visited, list<int> &result) {
-	// TODO
-	
+	visited[src] = true;
+	result.push_back(src);
+
+	for (int nb : this->neighbors(src)) {
+		if (!visited[nb]) {
+			DFS(nb, visited, result);
+		}
+	}
 }
 
 // Busca em largura
@@ -102,8 +134,24 @@ list<int> Graph::bfs(int src) {
 
 // Busca em largura
 void Graph::BFS(int src, vector<bool> &visited, list<int> &result) {
-	// TODO
+	queue<int> fila;
 
+	visited[src] = true;
+	fila.push(src);
+
+	while (!fila.empty()) {
+		int atual = fila.front();
+		fila.pop();
+
+		result.push_back(atual);
+
+		for (int nb : this->neighbors(atual)) {
+			if (!visited[nb]) {
+				visited[nb] = true;
+				fila.push(nb);
+			}
+		}
+	}
 }
 
 bool Graph::has_cycle() const {
@@ -123,21 +171,52 @@ bool Graph::has_cycle(int src) const {
 }
 
 bool Graph::has_cycle(int src, vector<bool> &visited) const {
-    // TODO
+	visited[src] = true;
 
+	for (int nb : this->neighbors(src)) {
+		if (visited[nb]) {
+			return true;
+		}
+		if (has_cycle(nb, visited)) {
+			return true;
+		}
+	}
+
+	visited[src] = false;
+
+	return false;
 }
 
 bool Graph::reacheable(int src, int dst) const {
-    if (src < 0 || src >= adj.size())
-        throw std::runtime_error("Src invalido");
+	if (src < 0 || src >= adj.size())
+		throw std::runtime_error("Src invalido");
 
-    if (dst < 0 || src >= adj.size())
-        throw std::runtime_error("Dst invalido");
+	if (dst < 0 || src >= adj.size())
+		throw std::runtime_error("Dst invalido");
 
-    // TODO
+	vector<bool> visited(adj.size(), false);
+	queue<int> fila;
 
+	visited[src] = true;
+	fila.push(src);
 
-    return false;
+	while (!fila.empty()) {
+		int atual = fila.front();
+		fila.pop();
+
+		if (atual == dst) {
+			return true;
+		}
+
+		for (int nb : this->neighbors(atual)) {
+			if (!visited[nb]) {
+				visited[nb] = true;
+				fila.push(nb);
+			}
+		}
+	}
+
+	return false;
 }
 
 void Graph::dijkstra(int src, vector<int> &prev, vector<long> &dist) {
@@ -258,4 +337,3 @@ void graph() {
     cout << "Reachable(3, 5): " << (graph3.reacheable(3, 5)?"yes":"no") << endl; // yes
     cout << "Reachable(1, 2): " << (graph3.reacheable(1, 2)?"yes":"no") << endl; // no
 }
-

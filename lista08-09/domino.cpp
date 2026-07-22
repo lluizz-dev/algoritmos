@@ -1,11 +1,10 @@
-
 #include "graph.h"
 
 
 Graph montar_grafo(const vector<pair<int, int>> &pecas, int max) {
     Graph grafo(max + 1);
 
-    // pecas s�o bidirecionais
+    // pecas sao bidirecionais
     for (const auto& par : pecas) {
         grafo.edge(par.first, par.second, 1);
         grafo.edge(par.second, par.first, 1);
@@ -16,9 +15,18 @@ Graph montar_grafo(const vector<pair<int, int>> &pecas, int max) {
 }
 
 bool is_euler(const Graph &graph) {
-    // TODO
-    
-    return false;
+    // conexo
+    if (!graph.isConnected()) return false;
+
+    // dois vertices com grau impar
+    int oddCount = 0;
+    for (int i = 0; i < graph.size(); i++) {
+        if (graph.degree(i) % 2 != 0) {
+            oddCount++;
+        }
+    }
+
+    return oddCount <= 2;
 }
 
 // int main() {

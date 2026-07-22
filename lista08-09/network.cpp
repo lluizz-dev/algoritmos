@@ -5,9 +5,33 @@
 #include "graph.h"
 
 vector<int> overloaded(Graph capacity, Graph traffic) {
-    // TODO
-    
-    return vector<int>();
+    int n = capacity.size();
+
+    vector<long> outCapacity(n, 0);
+    vector<long> incoming(n, 0);
+
+    for (int v = 0; v < n; v++) {
+        list<int> nei = capacity.neighbors(v);
+        for (int dst : nei) {
+            outCapacity[v] += capacity.weight(v, dst);
+        }
+    }
+
+    for (int v = 0; v < n; v++) {
+        list<int> nei = traffic.neighbors(v);
+        for (int dst : nei) {
+            incoming[dst] += traffic.weight(v, dst);
+        }
+    }
+
+    vector<int> result;
+    for (int v = 0; v < n; v++) {
+        if (incoming[v] > outCapacity[v]) {
+            result.push_back(v);
+        }
+    }
+
+    return result;
 }
 
 // int main() {
