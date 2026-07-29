@@ -62,11 +62,32 @@ bool subsetSumBT(const vector<int> &array, int k, vector<bool> &subset) {
 /* Pr�tica 11 - Greedy ------------------ */
 
 bool subsetSumGreedy(const vector<int> &array, int k, vector<bool> &subset) {
-    // TODO
+	int n = array.size();
 
-    
+	vector<int> idx(n);
+	for (int i = 0; i < n; i++) idx[i] = i;
 
-    return false;
+	sort(idx.begin(), idx.end(), [&array](int a, int b) {
+		return array[a] > array[b];
+	});
+
+	fill(subset.begin(), subset.end(), false);
+
+	int restante = k;
+
+	for (int i = 0; i < n; i++) {
+		count_ssk++;
+
+		int pos = idx[i];
+		if (array[pos] <= restante) {
+			subset[pos] = true;
+			restante -= array[pos];
+		}
+
+		if (restante == 0) return true;
+	}
+
+	return (restante == 0);
 }
 
 /* Pr�tica 12 - Programa��o Din�mica ------------------ */

@@ -73,9 +73,35 @@ int subseqMaxMiddle(const vector<int> &array, int start, int middle, int finish,
 }
 
 int subseqMaxDC_Rec(const vector<int> &array, int start, int finish, int & ini, int & end) {
-	// TODO
-	
-	return -1;
+	// caso base
+	if (start == finish) {
+		ini = end = start;
+		return array[start];
+	}
+
+	// recursivos
+	int middle = (start + finish) / 2;
+
+	int iniL, endL;
+	int maxL = subseqMaxDC_Rec(array, start, middle, iniL, endL);
+
+	int iniR, endR;
+	int maxR = subseqMaxDC_Rec(array, middle + 1, finish, iniR, endR);
+
+	int iniM, endM;
+	int maxM = subseqMaxMiddle(array, start, middle, finish, iniM, endM);
+
+	if (maxL >= maxR && maxL >= maxM) {
+		ini = iniL; end = endL;
+		return maxL;
+	}
+	else if (maxR >= maxL && maxR >= maxM) {
+		ini = iniR; end = endR;
+		return maxR;
+	} else {
+		ini = iniM; end = endM;
+		return maxM;
+	}
 }
 
 int subseqMaxDC(const vector<int> &array, int & ini, int & end) {
