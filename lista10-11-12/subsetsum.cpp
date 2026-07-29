@@ -93,9 +93,32 @@ bool subsetSumGreedy(const vector<int> &array, int k, vector<bool> &subset) {
 /* Pr�tica 12 - Programa��o Din�mica ------------------ */
 
 bool subsetSumRecMemo(const vector<int> &array, int n, int k, vector<bool> &subset, vector<vector<int>> &memo) {
-    // TODO
-    
-    return false;
+	if (k == 0) return true;
+	if (n <= 0) return false;
+
+	if (memo[n][k] != -1) return memo[n][k];
+
+	count_ssk++;
+
+	int i = n - 1;
+
+	subset[i] = false;
+	if (subsetSumRecMemo(array, n - 1, k, subset, memo)) {
+		memo[n][k] = 1;
+		return true;
+	}
+
+	if (array[i] <= k) {
+		subset[i] = true;
+		if (subsetSumRecMemo(array, n - 1, k - array[i], subset, memo)) {
+			memo[n][k] = 1;
+			return true;
+		}
+	}
+
+	subset[i] = false;
+	memo[n][k] = 0;
+	return false;
 }
 
 bool subsetSumMemo(const vector<int> &array, int k, vector<bool> &subset) {
@@ -105,12 +128,41 @@ bool subsetSumMemo(const vector<int> &array, int k, vector<bool> &subset) {
 }
 
 bool subsetSumDP(const vector<int> &array, int k, vector<bool> &subset) {
-	// TODO
-    
+	int n = array.size();
 
-    return true;
+	vector<vector<bool>> dp(n + 1, vector<bool>(k + 1, false));
+
+	// base
+	for (int i = 0; i <= n; i++) dp[i][0] = true;
+
+	for (int i = 1; i <= n; i++) {
+		for (int j = 1; j <= k; j++) {
+			count_ssk++;
+			dp[i][j] = dp[i - 1][j];
+
+			if (!dp[i][j] && array[i - 1] <= j) {
+				dp[i][j] = dp[i - 1][j - array[i - 1]];
+			}
+		}
+	}
+
+	if (!dp[n][k]) return false;
+
+	fill(subset.begin(), subset.end(), false);
+	int i = n, j = k;
+
+	while (i > 0 && j > 0) {
+		if (dp[i - 1][j]) {
+			i--;
+		} else {
+			subset[i - 1] = true;
+			j -= array[i - 1];
+			i--;
+		}
+	}
+
+	return true;
 }
-
 
 
 /* -------------------------------------- */

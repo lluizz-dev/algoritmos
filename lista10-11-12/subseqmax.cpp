@@ -157,26 +157,91 @@ int subseqMaxRec(const vector<int> &array, int & ini, int & end) {
 /* Pr�tica 12 - Memoization ----------------- */
 
 int seqMaxMemo(const vector<int> &array, int pos, int & ini, vector<int> &SUM, vector<int> &INI) {
-	// TODO
-  
+	if (pos < 0) return 0;
 
-	return -1;
+	// retorna direto da memória
+	if (SUM[pos] != -1) {
+		ini = INI[pos];
+		return SUM[pos];
+	}
+
+	count_ssm++;
+	int sum, iniPrev;
+	int x = array[pos];
+	int sumPrev = x + seqMaxMemo(array, pos - 1, iniPrev, SUM, INI);
+
+	if (x >= sumPrev) {
+		sum = array[pos];
+		ini = pos;
+	} else {
+		sum = sumPrev;
+		ini = iniPrev;
+	}
+
+	SUM[pos] = sum;
+	INI[pos] = ini;
+
+	return sum;
 }
 
 int subseqMaxMemo(const vector<int> &array, int & ini, int & end) {
-	// TODO
-	
+	int sum = 0;
+	int len = (int)array.size();
+	ini = end = -1;
 
-	return -1;
+	count_ssm = 0;
+
+	vector<int> SUM(len, -1);
+	vector<int> INI(len, -1);
+
+	for (int i = 0; i < len; i++) {
+		int _ini, _sum;
+		_sum = seqMaxMemo(array, i, _ini, SUM, INI);
+
+		if (_sum > sum) {
+			sum = _sum;
+			ini = _ini;
+			end = i;
+		}
+	}
+
+	return sum;
 }
 
 /* Pr�tica 12 - Programa��o Din�mica ----------------- */
 
 int subseqMaxPD(const vector<int> &array, int & ini, int & end) {
-	// TODO
-	
+	int n = array.size();
+	if (n == 0) { ini = end = -1; return 0; }
 
-	return -1;
+	vector<int> SUM(n);   // maior soma em i
+	vector<int> INI(n);   // início dessa subsequência
+
+	SUM[0] = array[0];
+	INI[0] = 0;
+
+	for (int i = 1; i < n; i++) {
+		if (array[i] >= SUM[i - 1] + array[i]) {
+			SUM[i] = array[i];
+			INI[i] = i;
+		} else {
+			SUM[i] = SUM[i - 1] + array[i];
+			INI[i] = INI[i - 1];
+		}
+	}
+
+	int maior = 0;
+	ini = end = -1;
+
+	for (int i = 0; i < n; i++) {
+		if (SUM[i] > maior) {
+			maior = SUM[i];
+			ini = INI[i];
+			end = i;
+		}
+	}
+
+	return maior;
 }
 
 /* -------------------------------------- */
