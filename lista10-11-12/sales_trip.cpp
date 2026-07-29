@@ -3,21 +3,22 @@
 //
 #include <vector>
 #include <iostream>
-#include <ranges>
 
 using namespace std;
 
+// TODO: Fazer sem o Kadone
 int max_profit(const vector<int> &costs, const vector<int> &sales) {
     int n = costs.size();
     int maior = 0;
-    int atual = 0;
 
-    for (int i = 0; i < n; i++) {
-        int lucroDia = sales[i] - costs[i];
-
-        // Kadane: ou continua a sequência atual, ou recomeça a partir daqui
-        atual = max(lucroDia, atual + lucroDia);
-        maior = max(maior, atual);
+    for (int start = 0; start < n; start++) {
+        int soma = 0;
+        for (int finish = start; finish < n; finish++) {
+            soma += sales[finish] - costs[finish];
+            if (soma > maior) {
+                maior = soma;
+            }
+        }
     }
 
     return maior;

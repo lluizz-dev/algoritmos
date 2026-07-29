@@ -20,6 +20,7 @@ using namespace std;
 // start e finish: in�cio e final sendo testado agora;
 // ini e end: onde s�o retornados o in�cio e final da melhor sequ�ncia
 // retorno � a soma da maior sequ�ncia
+// TODO: Fazer com O(n²)
 int subseqMaxBF(const vector<int> &array, int &ini, int &end) {
 	int n = array.size();
 	int maior = 0;
@@ -27,11 +28,9 @@ int subseqMaxBF(const vector<int> &array, int &ini, int &end) {
 	end = 0;
 
 	for (int start = 0; start < n; start++) {
+		int soma = 0;
 		for (int finish = start; finish < n; finish++) {
-			int soma = 0;
-			for (int z = start; z <= finish; z++) {
-				soma += array[z];
-			}
+			soma += array[finish];   // acumula em vez de recalcular
 			if (soma > maior) {
 				maior = soma;
 				ini = start;
